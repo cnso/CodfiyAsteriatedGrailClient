@@ -18,6 +18,7 @@ DecisionArea::DecisionArea()
     exchangeButton->setParentItem(this);
     exchangeButton->setPos(-80,0);
     exchangeButton->setOpacity(0);
+
     connect(exchangeButton,SIGNAL(buttonSelected(int)),this,SLOT(onButtonSelected(int)));
 
     resignButton=new Button(3,QStringLiteral("放弃行动"));
@@ -63,22 +64,20 @@ void DecisionArea::enable(int i)
     {
     case 0:
         okButton->setEnabled(1);
-        okButton->setOpacity(1);
         okButton->selected=0;
         break;
     case 1:
         cancelButton->setEnabled(1);
-        cancelButton->setOpacity(1);
         cancelButton->selected=0;
         break;
     case 2:
-        exchangeButton->setEnabled(1);
         exchangeButton->setOpacity(1);
+        exchangeButton->setEnabled(1);
         exchangeButton->selected=0;
         break;
     case 3:
-        resignButton->setEnabled(1);
         resignButton->setOpacity(1);
+        resignButton->setEnabled(1);
         resignButton->selected=0;
         break;
     }
@@ -91,23 +90,21 @@ void DecisionArea::disable(int i)
     {
     case 0:
         okButton->setEnabled(0);
-        okButton->setOpacity(0.8);
         okButton->selected=0;
         break;
     case 1:
         cancelButton->setEnabled(0);
-        cancelButton->setOpacity(0.8);
         cancelButton->selected=0;
         break;
     case 2:
-        exchangeButton->setEnabled(0);
         exchangeButton->setOpacity(0);
+        exchangeButton->setEnabled(0);
         exchangeButton->selected=0;
         break;
     case 3:
-        resignButton->setEnabled(0);
         resignButton->setOpacity(0);
-        exchangeButton->selected=0;
+        resignButton->setEnabled(0);
+        resignButton->selected=0;
         break;
     }
 }
@@ -115,31 +112,29 @@ void DecisionArea::disable(int i)
 void DecisionArea::reset()
 {
     okButton->setEnabled(0);
-    okButton->setOpacity(0.8);
     okButton->selected=0;
 
     cancelButton->setEnabled(0);
-    cancelButton->setOpacity(0.8);
     cancelButton->selected=0;
 
-    exchangeButton->setEnabled(0);
     exchangeButton->setOpacity(0);
+    exchangeButton->setEnabled(0);
     exchangeButton->selected=0;
 
-    resignButton->setEnabled(0);
     resignButton->setOpacity(0);
-    exchangeButton->selected=0;
+    resignButton->setEnabled(0);
+    resignButton->selected=0;
 }
 
 ButtonArea::ButtonArea()
 {
 }
 
-void ButtonArea::init(bool playing)
+void ButtonArea::init(bool roleInited)
 {
     Button *button;
     clear();
-    if(playing){
+    if(roleInited){
         button = new Button(0, QStringLiteral("购买"));
         addButton(button);
 
@@ -150,13 +145,10 @@ void ButtonArea::init(bool playing)
         addButton(button);
     }
     else{
-        button = new Button(0, QStringLiteral("点名"));
+        button = new Button(0, QStringLiteral("准备"));
         addButton(button);
 
-        button = new Button(1, QStringLiteral("准备"));
-        addButton(button);
-
-        button = new Button(2, QStringLiteral("选队"));
+        button = new Button(1, QStringLiteral("选队"));
         addButton(button);
 
         foreach(Button* b, buttons){
@@ -209,7 +201,6 @@ void ButtonArea::addOutsideTurnButton(Button* button)
 {
     button->setParentItem(this);
     button->setPos(80*(button->id - 10),-200);
-    button->setOpacity(1);
 }
 
 void ButtonArea::onButtonUnselected(int id)
@@ -233,14 +224,12 @@ void ButtonArea::setEnabled(bool enable)
 void ButtonArea::enable(int i)
 {
     buttons[i]->setEnabled(1);
-    buttons[i]->setOpacity(1);
 }
 
 void ButtonArea::disable(int i)
 {
     buttons[i]->selected=0;
     buttons[i]->setEnabled(0);
-    buttons[i]->setOpacity(0.8);
 }
 
 SafeList<Button*> ButtonArea::getButtons()

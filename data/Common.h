@@ -2,7 +2,6 @@
 #define COMMON_H
 #include <QString>
 #include "protocol/action_respond.pb.h"
-#define VERSION 151223
 
 enum ACCOUNT_STATUS{
     STATUS_NORMAL = 0,
@@ -41,12 +40,14 @@ enum GrailError{
     GE_NO_STATE,
     GE_NO_CONTEXT,
     GE_NO_REPLY,
+    GE_INTERRUPTED,
     GE_NOT_SUPPORTED,
     GE_PLAYER_FULL,
     GE_GUEST_FULL,
     GE_DISCONNECTED,
     GE_NOT_WELCOME,
-    GE_WRONG_PASSWORD
+    GE_WRONG_PASSWORD,
+    GE_VIP_ONLY
 };
 
 enum CAUSE{

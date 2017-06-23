@@ -19,6 +19,8 @@ Lobby::Lobby(QWidget *parent) :
     connect(ui->createButton, SIGNAL(clicked()), this, SLOT(onCreateRoom()));
     connect(ui->refreshButton, SIGNAL(clicked()), this, SLOT(onRefreshList()));
     onRefreshList();
+
+	this->setWindowFlags(this->windowFlags()&Qt::WindowMaximizeButtonHint);
 }
 
 Lobby::~Lobby()
@@ -67,6 +69,9 @@ void Lobby::fill(RoomListResponse* list)
         case ROLE_STRATEGY_BP:
             newItem = new QTableWidgetItem(QStringLiteral("BAN-PICK"));
             break;
+        case ROLE_STRATEGY_CM:
+            newItem = new QTableWidgetItem(QStringLiteral("CM01"));
+            break;
         default:
             newItem = new QTableWidgetItem(QStringLiteral("Error"));
             break;
@@ -85,6 +90,9 @@ void Lobby::fill(RoomListResponse* list)
             break;
         case SEAT_MODE_INTERLACE:
             newItem = new QTableWidgetItem(QStringLiteral("间隔"));
+            break;
+        case SEAT_MODE_RBBRRB:
+            newItem = new QTableWidgetItem(QStringLiteral("红蓝蓝红红蓝"));
             break;
         default:
             newItem = new QTableWidgetItem(QStringLiteral("Error"));
